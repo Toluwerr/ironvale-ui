@@ -1,4 +1,6 @@
-local Ironvale = require(script.Parent.Parent.Ironvale)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Ironvale = require(ReplicatedStorage:WaitForChild("Ironvale"))
 
 local window = Ironvale.new({
 	Name = "IronvaleKitchenSink",
