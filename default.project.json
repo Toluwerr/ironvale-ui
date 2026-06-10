@@ -1,0 +1,24 @@
+{
+  "name": "ironvale-ui",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Ironvale": {
+        "$path": "Ironvale.lua"
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "BasicWindow": {
+          "$path": "examples/basic_window.client.luau"
+        },
+        "KitchenSink": {
+          "$path": "examples/kitchen_sink.client.luau"
+        }
+      }
+    }
+  }
+}
