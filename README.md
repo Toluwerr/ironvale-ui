@@ -6,9 +6,10 @@ The default theme is graphite with brass and moss accents. It avoids saturated g
 
 ## Files
 
-- `Ironvale.lua` - the ModuleScript source.
+- `Ironvale.lua` - the single-file library source.
 - `examples/basic_window.client.luau` - small starter window.
 - `examples/kitchen_sink.client.luau` - component coverage example.
+- `examples/loadstring_astra_style.luau` - loadstring-friendly compatibility example.
 
 ## Install
 
@@ -48,22 +49,68 @@ section:Toggle({
 })
 ```
 
+## Loadstring Use
+
+Ironvale also works from a raw GitHub loadstring in executor-style LocalScript environments:
+
+```lua
+local Ironvale = loadstring(game:HttpGet("https://raw.githubusercontent.com/Toluwerr/ironvale-ui/refs/heads/main/Ironvale.lua"))()
+
+local Window = Ironvale.CreateWindow({
+	Title = "Ironvale Control Panel",
+	Subtitle = "Professional component showcase",
+	Theme = "Crimson",
+	Size = UDim2.fromOffset(680, 460),
+	ToggleKey = Enum.KeyCode.K,
+})
+
+local Home = Window:Tab({
+	Title = "Home",
+	Icon = "◆",
+})
+
+local Info = Home:Section({
+	Title = "Overview",
+	Description = "Astra-style aliases are supported.",
+})
+
+Info:Button({
+	Title = "Show Notification",
+	ActionText = "Notify",
+	Callback = function()
+		Window:Notify({
+			Title = "Ironvale UI",
+			Text = "The notification system is working.",
+			Type = "Success",
+			Duration = 3,
+		})
+	end,
+})
+```
+
 ## Components
 
+- `Ironvale.CreateWindow(config)` or `Ironvale.new(config)`
 - `Window:Tab({ Name, Icon, Default })`
+- `Window:Tab({ Title, Icon, Default })`
 - `Tab:Section(title, { Icon, Description })`
+- `Tab:Section({ Title, Icon, Description })`
 - `Section:Button({ Title, Description, Icon, Callback })`
+- `Section:Button({ Title, Description, ActionText, Callback })`
 - `Section:Toggle({ Title, Description, Default, Callback })`
-- `Section:Slider({ Title, Min, Max, Default, Decimals, Callback })`
+- `Section:Slider({ Title, Min, Max, Default, Step, Decimals, Callback })`
 - `Section:Dropdown({ Title, Options, Default, Callback })`
 - `Section:Input({ Title, Placeholder, Default, Callback })`
 - `Section:Keybind({ Title, Default, Changed, Callback })`
 - `Section:ColorSwatch({ Title, Colors, Default, Callback })`
 - `Section:Progress({ Title, Default })`
-- `Section:Paragraph({ Title, Body })`
+- `Section:Paragraph({ Title, Body })` or `Section:Paragraph({ Title, Text })`
+- `Section:CodeBlock({ Title, Code, Height })`
 - `Section:Divider()`
 - `Window:Notify({ Title, Body, Kind, Icon, Duration })`
+- `Window:Notify({ Title, Text, Type, Icon, Duration })`
 - `Window:Dialog({ Title, Body, PrimaryText, SecondaryText, OnConfirm, OnCancel })`
+- `Window:SetTheme("Forged" | "Crimson" | "Slate")`
 
 Most stateful controls return small handles with `Get` and `Set` methods.
 
@@ -72,6 +119,8 @@ Most stateful controls return small handles with `Get` and `Set` methods.
 Ironvale ships with an inline Lucide-style stroke renderer for common names:
 
 `activity`, `alert-triangle`, `bell`, `check`, `chevron-down`, `chevron-right`, `copy`, `database`, `download`, `eye`, `home`, `info`, `key`, `layout-dashboard`, `list-checks`, `lock`, `minus`, `mouse-pointer-click`, `palette`, `panel-left`, `plus`, `rocket`, `save`, `search`, `settings`, `shield`, `sliders-horizontal`, `sparkles`, `terminal-square`, `trash-2`, `upload`, `wrench`, `x`.
+
+Unknown short icon strings such as `◆`, `◇`, and `◎` render as text-icon fallbacks, so Astra-style examples do not break.
 
 You can also pass uploaded Lucide image assets through `IconPack`:
 
@@ -87,6 +136,8 @@ local window = Ironvale.new({
 ## Theme
 
 Override only the colors you need. Keep accents intentional so the UI does not turn into a random-color dashboard.
+
+Built-in theme names are `Forged`, `Crimson`, `Slate`, and `Midnight` as an alias for `Forged`.
 
 ```lua
 local window = Ironvale.new({
