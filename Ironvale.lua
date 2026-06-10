@@ -664,7 +664,7 @@ function Window:_syncTab(tab)
 	tab.Indicator.Visible = active
 	tab.Button.BackgroundTransparency = active and 0 or 1
 	tab.Button.BackgroundColor3 = active and theme.AccentSoft or theme.SurfaceSunken
-	tab.Title.TextColor3 = active and theme.Text or theme.TextMuted
+	tab.TitleLabel.TextColor3 = active and theme.Text or theme.TextMuted
 	setIconColor(tab.Icon, active and theme.Accent or theme.TextMuted)
 end
 
